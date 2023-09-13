@@ -17,31 +17,34 @@ void print(int n_new, int* arr_new) {
 }
 
 void create(int n, int& n_new, int* arr, int*& arr_new) {
-	int fl = 1;
-	n_new = 0;
-	int* tmp = new int[n];
-	for (int i = 0; i < n; i++) {
-		tmp[i] = 0;
-	}
-	for (int i = 0; i < n; i++) {
-		for (int j = 0; j < n; j++) {
-			if (arr[i] == tmp[j]) {
+
+	n_new = 1;
+	for (int i = 1; i < n; i++) {
+		int fl = 1;
+		for (int j = 0; j < i; j++) {
+			if (arr[i] == arr[j]) {
 				fl = 0;
 				break;
 			}
 		}
 		if (fl == 1) {
-			tmp[n_new] = arr[i];
-			n_new++;
+			n_new++;                                                                                      
 		}
-		else
-			fl = 1;
 	}
-	//cout << n_new << " ";
 	arr_new = new int[n_new];
-	int k = 0;
-	for (int i = 0; i < n_new; i++) {
-		arr_new[i] = tmp[i];
+	arr_new[0] = arr[0];
+	int k = 1;
+	for (int i = 1; i < n; i++) {
+		int fl = 1;
+		for (int j = 0; j < i; j++) {
+			if  (arr[i] == arr[j]) {
+				fl = 0;
+				break;
+			}
+		}
+		if (fl == 1) {
+			arr_new[k] = arr[i];
+			k++;
+		}
 	}
-	delete[] tmp;
 }

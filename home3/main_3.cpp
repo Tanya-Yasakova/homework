@@ -9,4 +9,5 @@ void main() {
 	create(n, n_new, arr, arr_new);
 	print(n_new, arr_new);
 	delete[] arr;
+	delete[] arr_new;
 }
