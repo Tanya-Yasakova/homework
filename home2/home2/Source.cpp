@@ -37,17 +37,16 @@ void Vector::completion() {
     }
 }
 
-float Vector::scalar(const Vector& vector) {
-    float s = 0;
-    for (int i = 0; i < n; i++)
-        {
-            s += x[i] * vector.x[i];
-        }
-        return s;
+float Vector::operator*(const Vector& vector) {
+	float s = 0;
+	for (int i = 0; i < n; i++)
+	{
+		s += x[i] * vector.x[i];
+	}
+	return s;
 }
-
-float Vector::GetCos(const Vector& vector) {
-    float s = scalar(vector);
+const float Vector::GetCos(const Vector& vector) {
+    float s = (*this) * vector;
     float comp = GetLength() * vector.GetLength();
     return (s / comp);
 }
@@ -71,16 +70,9 @@ Vector Vector::operator-(const Vector& vector)
 	}
 	return b;
 }
-Vector Vector::operator*(const Vector& vector) {
-	Vector b(*this);
-	for (int i = 0; i < n; i++)
-	{
-		b.x[i] *= vector.x[i];
-	}
-	return b;
-}
 
-Vector& Vector::operator=(const Vector& vector) {
+
+const Vector& Vector::operator=(const Vector& vector) {
 	if ((*this) == vector) {
 		return *this;
 	}
@@ -95,7 +87,7 @@ Vector& Vector::operator=(const Vector& vector) {
 	return *this;
 }
 
-bool Vector::operator==(const Vector& vector) {
+bool Vector::operator==(const Vector& vector) const{
 	if (n != vector.n) {
 		return false;
 	}
@@ -107,7 +99,7 @@ bool Vector::operator==(const Vector& vector) {
 	return true;
 }
 
-bool Vector::operator!=(const Vector& vector) {
+bool Vector::operator!=(const Vector& vector) const{
 	return !((*this) == vector);
 }
 

@@ -17,16 +17,15 @@ public:
     void completion();
     float GetLength() const;
 
-    float GetCos(const Vector& vector);
-    float scalar(const Vector& vector);
+    const float GetCos(const Vector& vector);
 
     Vector operator+(const Vector& vector);
     Vector operator-(const Vector& vector);
-    Vector operator*(const Vector& vector);
-    Vector& operator=(const Vector& vector);
+    float operator*(const Vector& vector);
+    const Vector& operator=(const Vector& vector);
 
-    bool operator==(const Vector& vector);
-    bool operator!=(const Vector& vector);
+    bool operator==(const Vector& vector) const;
+    bool operator!=(const Vector& vector) const;
 
     friend std::ostream& operator<<(std::ostream& out, const Vector& v);
     friend std::istream& operator>>(std::istream& in, Vector& v);
