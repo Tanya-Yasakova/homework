@@ -77,10 +77,19 @@ void Group::removeStudent(const string& surname) {
     cout << "Student with surname " << surname << " not found.\n";
 }
 
-student* Group::findStudentBySurname(const string& surname) {
+int Group::findStudentBySurname(const string& name, const string& surname, const string& lastname) {
     for (int i = 0; i < size; i++) {
-        if (students[i].surname == surname) {
-            return &students[i];
+        if ((students[i].name == name) && (students[i].surname == surname) && (students[i].lastname == lastname)) {
+            return i;
+        }
+    }
+    return 0;
+}
+
+int Group::findStudentByNumber(const string& number) {
+    for (int i = 0; i < size; i++) {
+        if (students[i].number == number) {
+            return i;
         }
     }
     return 0;

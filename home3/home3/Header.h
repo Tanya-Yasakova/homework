@@ -40,11 +40,20 @@ public:
     Group(int size);
     ~Group();
     void addStudent(const student& new_student);
-    void removeStudent(const std::string& surname);
-    student* findStudentBySurname(const std::string& surname);
+    void removeStudent(const string& surname);
+    int findStudentBySurname(const string& name, const string& surname, const string& lastname);
+    int findStudentByNumber(const string& number);
     void printGroup();
+    void printStudent();
     void readStudentsFromFile(const string& filepath);
     void addNewStudent();
+    friend ostream& operator<<(ostream& out, const Group& obj) {
+        
+    }
+
+    friend istream& operator>>(istream& in, Group& obj) {
+        
+    }
 };
 
 #endif
