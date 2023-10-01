@@ -5,12 +5,13 @@
 using namespace std;
 
 Group::Group() {
-   size = 0;
+    size = 0;
+    maxsize = 0;
 }
 
 
-Group::Group(int size) : size(size) {
-    students = new student[size];
+Group::Group(int size, int maxsize) : size(size), maxsize(maxsize) {
+    students = new student[maxsize];
 }
 
 Group::~Group() {
@@ -29,7 +30,8 @@ void Group::readStudentsFromFile(const string& filepath) {
     file >> _size;
 
     size = _size;
-    students = new student[size];
+    maxsize = size*2;
+    students = new student[maxsize];
 
     for (int i = 0; i < size; i++) {
         student s;
@@ -42,49 +44,24 @@ void Group::readStudentsFromFile(const string& filepath) {
 
 }
 
-void Group::printGroup() {
-    for (int i = 0; i < this->size; i++) {
-        if (!this->students[i].name.empty()) {
-            cout << "Студент " << i + 1 << ":\n";
-            cout << "Имя: " << this->students[i].name << "\n";
-            cout << "Фамилия: " << this->students[i].surname << "\n";
-            cout << "Отчество: " << this->students[i].lastname << "\n";
-            cout << "Номер телефона: " << this->students[i].number << "\n";
-            cout << "Дата рождения: " << this->students[i].birthday.day << "."
-                << this->students[i].birthday.month << "."
-                << this->students[i].birthday.year << "\n\n";
-        }
+void Group::removeStudent(const int& index) {
+    for (int j = index; j < size - 1; j++) {
+        students[j] = students[j + 1];
     }
+    students[size - 1] = student();
+    size = size - 1;
+    return;
 }
-
-
-
-
-
-
-
-
-void Group::removeStudent(const string& surname) {
-    for (int i = 0; i < size; i++) {
-        if (students[i].surname == surname) {
-            for (int j = i; j < size - 1; j++) {
-                students[j] = students[j + 1];
-            }
-            students[size - 1] = student();
-            return;
-        }
-    }
-    cout << "Student with surname " << surname << " not found.\n";
-}
-
 int Group::findStudentBySurname(const string& name, const string& surname, const string& lastname) {
     for (int i = 0; i < size; i++) {
         if ((students[i].name == name) && (students[i].surname == surname) && (students[i].lastname == lastname)) {
             return i;
         }
     }
-    return 0;
+    return -1;
 }
+
+
 
 int Group::findStudentByNumber(const string& number) {
     for (int i = 0; i < size; i++) {
@@ -92,29 +69,31 @@ int Group::findStudentByNumber(const string& number) {
             return i;
         }
     }
-    return 0;
+    return -1;
+}
+void Group::removeStudentN(const int& index) {
+    for (int j = index; j < size - 1; j++) {
+        students[j] = students[j + 1];
+    }
+    students[size - 1] = student();
+    size = size - 1;
+    return;
 }
 
 void Group::addNewStudent() {
-    size++;
-    student* add = new student[size];
-    for (int i = 0; i < size-1; i++) {
-        add[i] = students[i];
+    if (size == maxsize) {
+        maxsize = maxsize * 2;
+        student* add = new student[maxsize];
+        for (int i = 0; i < size; i++) {
+            add[i] = students[i];
+        }
+        delete[] students;
+        students = add;
     }
-    delete[] students;
+
     student new_student;
-    cout << "Enter student's name: ";
-    cin >> new_student.name;
-    cout << "Enter student's surname: ";
-    cin >> new_student.surname;
-    cout << "Enter student's lastname: ";
-    cin >> new_student.lastname;
-    cout << "Enter student's birthday (day month year): ";
-    cin >> new_student.birthday.day >> new_student.birthday.month >> new_student.birthday.year;
-    cout << "Enter student's number: ";
-    cin >> new_student.number;
-    add[size - 1] = new_student;
-    students = add;
+    cin >> new_student;
+
+    students[size] = new_student;
+    size++;
 }
-
-

@@ -11,24 +11,22 @@ int main() {
 
     Group group;
     group.readStudentsFromFile(filepath);
+    cout << group;
 
-    group.printGroup();
-
-    
 
     cout << "Add a new student: " << "\n";
     group.addNewStudent();
-    group.printGroup();
+    cout << group;
 
     string name, surname, lastname;
-    cout << "Delete a student. Enter the student's last name:  " << "\n";
+    cout << "Delete a student. Enter the student fio:  " << "\n";
     cin >> name >> surname >> lastname;
     int found_student = group.findStudentBySurname(name, surname, lastname);
-    if (found_student != 0) {
-        cout << "Student found: " << students[found_student].name<< " " << students[found_student].surname << students[found_student].lastname << "\n";
+    if (found_student != -1) {
+        cout << "Student found " << group.students[found_student] << "\n";
         cout << "Delete..." << "\n";
-        group.removeStudent(surname);
-        group.printGroup();
+        group.removeStudent(found_student);
+        cout << group;;
     }
     else {
         cout << "Student with last name " << surname << " not found.\n";
@@ -37,15 +35,15 @@ int main() {
     string number;
     cout << "Delete a student. Enter the student's number:  " << "\n";
     cin >> number;
-    student* found_student = group.findStudentBySurname(name, surname, lastname);
-    if (found_student != nullptr) {
-        cout << "Student found: " << found_student->name << " " << found_student->surname << found_student->lastname << "\n";
+    int found_student_by_number = group.findStudentByNumber(number);
+    if (found_student_by_number != -1) {
+        cout << "Student found" <<  group.students[found_student_by_number] << "\n";
         cout << "Delete..." << "\n";
-        group.removeStudent(surname);
-        group.printGroup();
+        group.removeStudentN(found_student_by_number);
+        cout << group;
     }
     else {
-        cout << "Student with last name " << surname << " not found.\n";
+        cout << "Student with number " << number << " not found.\n";
     }
 
     return 0;
