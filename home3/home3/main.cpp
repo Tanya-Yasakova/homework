@@ -17,20 +17,15 @@ int main() {
     cout << "Add a new student: " << "\n";
     group.addNewStudent();
     cout << group;
-
-    string name, surname, lastname;
+    int k = 0;
+    string surname;
     cout << "Delete a student. Enter the student fio:  " << "\n";
-    cin >> name >> surname >> lastname;
-    int found_student = group.findStudentBySurname(name, surname, lastname);
-    if (found_student != -1) {
-        cout << "Student found " << group.students[found_student] << "\n";
+    cin >>  surname ;
+    int* found_student = group.findStudentBySurname(surname, k);
         cout << "Delete..." << "\n";
-        group.removeStudent(found_student);
+        group.removeStudent(found_student, k);
         cout << group;;
-    }
-    else {
-        cout << "Student with last name " << surname << " not found.\n";
-    }
+
 
     string number;
     cout << "Delete a student. Enter the student's number:  " << "\n";

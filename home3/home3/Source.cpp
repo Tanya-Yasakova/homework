@@ -44,21 +44,33 @@ void Group::readStudentsFromFile(const string& filepath) {
 
 }
 
-void Group::removeStudent(const int& index) {
-    for (int j = index; j < size - 1; j++) {
-        students[j] = students[j + 1];
+void Group::removeStudent(const int* find, int k) {
+    for (int i = 0; i < k; i++) {
+        for (int j = find[i]; j < size - 1; j++) {
+            students[j] = students[j + 1];
+        }
+        students[size - 1] = student();
+        size = size - 1;
     }
-    students[size - 1] = student();
-    size = size - 1;
     return;
 }
-int Group::findStudentBySurname(const string& name, const string& surname, const string& lastname) {
+int* Group::findStudentBySurname(const string& surname, int& k) {
+    k = 0;
     for (int i = 0; i < size; i++) {
-        if ((students[i].name == name) && (students[i].surname == surname) && (students[i].lastname == lastname)) {
-            return i;
+        if  (students[i].surname == surname) {
+            k++;
         }
     }
-    return -1;
+    int* find = new int[k];
+    int m = 0;
+    for (int i = 0; i < size; i++) {
+        if (students[i].surname == surname) {
+            find[m] = i;
+            m++;
+          
+        }
+    }
+    return find;
 }
 
 
