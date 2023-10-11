@@ -66,7 +66,7 @@ public:
     Group();
     Group(int size, int maxsize);
     ~Group();
-    void removeStudent(const int* find, int k);
+    void removeStudent(int* find, int k);
     void removeStudentN(const int& index);
     int* findStudentBySurname(const string& surname, int& k);
     int findStudentByNumber(const string& number);

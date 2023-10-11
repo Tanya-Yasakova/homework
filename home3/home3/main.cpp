@@ -23,6 +23,9 @@ int main() {
     cin >>  surname ;
     int* found_student = group.findStudentBySurname(surname, k);
         cout << "Delete..." << "\n";
+        for (int i = 0; i < k; i++) {
+            cout << found_student[i];
+        }
         group.removeStudent(found_student, k);
         cout << group;;
 

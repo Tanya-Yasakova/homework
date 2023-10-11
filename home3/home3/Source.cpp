@@ -44,13 +44,15 @@ void Group::readStudentsFromFile(const string& filepath) {
 
 }
 
-void Group::removeStudent(const int* find, int k) {
+void Group::removeStudent(int* find, int k) {
     for (int i = 0; i < k; i++) {
         for (int j = find[i]; j < size - 1; j++) {
             students[j] = students[j + 1];
         }
         students[size - 1] = student();
         size = size - 1;
+        for (int m = i; m < k; m++)
+            find[m] -=  1;
     }
     return;
 }
